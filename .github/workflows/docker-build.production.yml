@@ -46,7 +46,7 @@ jobs:
           AWS_ACCOUNT_IDS: 012345678910,023456789012
 
       - name: Build Docker image
-        run: docker build --push --platform linux/arm64 -f Dockerfile -t 226254053595.dkr.ecr.us-east-1.amazonaws.com/roostr/backend:testing .
+        run: docker build --push --platform linux/amd64 -f Dockerfile -t 226254053595.dkr.ecr.us-east-1.amazonaws.com/roostr/backend:testing .
 
       # - name: Push Docker image
       #   run: docker push skyjun/testing-github-actions:latest
