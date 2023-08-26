@@ -40,7 +40,7 @@ jobs:
         # run: docker build --platform linux/arm64 -f Dockerfile -t skyjun/testing-github-actions:latest .
         run: |
           docker buildx create --use
-          docker buildx build --push --platform linux/amd64,linux/arm/v7 -f Dockerfile.base -t skyjun/testing-github-actions:latest .
+          docker buildx build --push --platform linux/amd64,linux/arm/v7 -f Dockerfile.base -t docker.io/skyjun/testing-github-actions:latest .
 
       # - name: Push Docker image
       #   run: docker push skyjun/testing-github-actions:latest
