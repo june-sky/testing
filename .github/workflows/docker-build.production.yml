@@ -19,11 +19,16 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Docker
-        uses: docker/setup-docker@v1
+        run: |
+          sudo apt-get remove docker docker-engine docker.io containerd runc || true
+          sudo apt-get update
+          sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+          sudo apt-get update
+          sudo apt-get install -y docker-ce docker-ce-cli containerd.io
 
       - name: Build Docker image
-        # run: docker build -t your-image-name:latest .
-        # run: docker build --platform linux/arm64 --push -f infra/Dockerfile -t ${DOCKER_REPO}:$(date +'%Y%m%d%H%M%S') -t ${DOCKER_REPO} .
         run: docker build --platform linux/arm64 -f Dockerfile -t skyjun/testing-github-actions:latest .
 
       - name: Log in to Docker Hub
